@@ -8,7 +8,7 @@ use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
 $factory->define(Post::class, function (Faker $faker) {
-    $title = $faker->title;
+    $title = $faker->sentence(4);
     
     //$slug = Str::of($title)->slug('-');//Categoría Alimentos -> categoria-alimentos
 
