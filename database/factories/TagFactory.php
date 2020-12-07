@@ -8,7 +8,7 @@ use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
 $factory->define(Tag::class, function (Faker $faker) {
-    $title = $faker->sentence(4);
+    $title = $faker->unique()->word(5);//Título único de 5 caracteres
     $slug = Str::of($title)->slug('-');
 
     return [
