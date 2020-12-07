@@ -22,6 +22,7 @@ class CreateCategoriesTable extends Migration
              * Si no se usan los slugs al ver un post la url queda: http://mhenriquez/post/1
              * Para hacer SEO la url debe referenciar el contenido: http://mhenriquez/post/desarrollo-web
              * Esto es un slug
+             * Al referenciar un nombre deben tener la misma longitud, en este caso por defecto todos tienen 191
              */
             $table->string('slug')->unique();
             $table->mediumText('body')->nullable();
