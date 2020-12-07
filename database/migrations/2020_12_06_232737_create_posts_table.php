@@ -30,7 +30,7 @@ class CreatePostsTable extends Migration
 
             $table->string('name');
             $table->string('slug')->unique();
-            $table->mediumText('extract')->nullable();
+            $table->mediumText('excerpt')->nullable();
 
             $table->text('body');
 
