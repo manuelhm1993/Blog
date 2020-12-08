@@ -14,14 +14,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 //De la raíz redireccionar al blog
-Route::redirect('/', '/posts');
+Route::redirect('/', '/blog');
 
 Auth::routes();
 
-Route::prefix('/posts')->name('web.')->group(function () {
+//Usuarios
+Route::name('web.')->group(function () {
     //El controlador se colocará en una carpeta
-    Route::get('/', 'Web\PostController@index')->name('posts.index');
+    Route::get('/blog', 'Web\PageController@blog')->name('blog');
 
     //Implicit binding con campo personalizado
-    Route::get('/{post:slug}', 'Web\PostController@show')->name('posts.show');
+    Route::get('/posts/{post:slug}', 'Web\PageController@post')->name('post');
+    Route::get('/categorias/{category:slug}', 'Web\PageController@category')->name('category');
+    Route::get('/etiquetas/{tag:slug}', 'Web\PageController@tag')->name('tag');
 });
+
+//Administradores

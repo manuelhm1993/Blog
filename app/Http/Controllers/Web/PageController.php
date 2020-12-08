@@ -7,18 +7,18 @@ use Illuminate\Http\Request;
 
 use App\Post;
 
-class PostController extends Controller
+class PageController extends Controller
 {
-    public function index() {
+    public function blog() {
         //Todos los posts publicados en orden descendente paginados de 3 en 3
         $posts = Post::orderBy('id', 'desc')
                      ->where('status', 'PUBLISHED')
                      ->paginate(3);
 
-        return view('web.posts.index', compact('posts'));
+        return view('web.blog', compact('posts'));
     }
 
-    public function show(Post $post) {
-        return view('web.posts.show', compact('post'));
+    public function post(Post $post) {
+        return view('web.post', compact('post'));
     }
 }

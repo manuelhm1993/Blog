@@ -16,7 +16,7 @@
                     @endif
 
                     <p class="card-text mt-4">{{ $post->excerpt }}</p>
-                    <a href="{{ route('web.posts.show', $post->slug) }}" class="float-right">Leer más</a>
+                    <a href="{{ route('web.post', $post->slug) }}" class="float-right">Leer más</a>
                 </div>
             </div>
             @endforeach
