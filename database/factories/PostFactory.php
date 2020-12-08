@@ -22,6 +22,7 @@ $factory->define(Post::class, function (Faker $faker) {
         'excerpt'     => $faker->text(200),
         'body'        => $faker->text(500),
         'status'      => $faker->randomElement(['PUBLISHED', 'DRAFT']),//Devuelve un elemento al azar del array dado
-        'file'        => $faker->imageUrl(1200, 400),
+        'file'        => 'https://lorempixel.com/1200/400',
     ];
+    
 });

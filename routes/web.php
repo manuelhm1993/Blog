@@ -13,10 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//De la raíz redireccionar al blog
+Route::redirect('/', '/blog');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//El controlador se colocará en una carpeta
+Route::get('/blog', 'Web\PageController@blog')->name('blog');
