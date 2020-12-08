@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+//use Illuminate\Database\Eloquent\Builder;
 
 use App\Post;
 use App\Category;
+use App\Tag;
 
 class PageController extends Controller
 {
@@ -45,6 +47,25 @@ class PageController extends Controller
                           ->where('status', 'PUBLISHED')
                           ->orderBy('id', 'desc')
                           ->paginate(3);
+
+        return view('web.blog', compact('posts'));
+    }
+
+    public function tag(Tag $tag) {
+        /**
+         * Sintaxis alternativa para verificar relaciones y agregar condiciones
+         */
+        /*$posts = Post::whereHas('tags', function (Builder $query) use($tag) {
+            $query->where('slug', $tag->slug);
+        })
+        ->where('status', 'PUBLISHED')
+        ->orderBy('id', 'desc')
+        ->get();*/
+
+        $posts = $tag->posts()
+                     ->where('status', 'PUBLISHED')
+                     ->orderBy('id', 'desc')
+                     ->paginate(3);
 
         return view('web.blog', compact('posts'));
     }
