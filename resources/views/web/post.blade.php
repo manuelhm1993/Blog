@@ -9,7 +9,8 @@
             <div class="card mb-5">
                 <h5 class="card-header bg-white">
                     Categoría
-                    <a href="#">{{ $post->category->name }}</a>
+                    {{-- Acceder a la información de la categoría relacionada con el post --}}
+                    <a href="{{ route('web.category', $post->category->slug) }}">{{ $post->category->name }}</a>
                 </h5>
 
                 <div class="card-body">
@@ -27,7 +28,7 @@
 
                     {{-- Iterar todas las etiquetas que tiene el post --}}
                     @foreach ($post->tags as $tag)
-                    <a href="#" class="badge badge-primary">{{ $tag->name }}</a>
+                    <a href="{{ route('web.tag', $tag->slug) }}" class="badge badge-primary">{{ $tag->name }}</a>
                     @endforeach
                 </div>
             </div>
