@@ -25,13 +25,13 @@ Route::name('web.')->group(function () {
     Route::get('/blog', 'Web\PageController@blog')->name('blog');
 
     //Implicit binding con campo personalizado
-    Route::get('/posts/{post:slug}', 'Web\PageController@post')->name('post');
+    Route::get('/post/{post:slug}', 'Web\PageController@post')->name('post');
     Route::get('/categorias/{category:slug}', 'Web\PageController@category')->name('category');
     Route::get('/etiquetas/{tag:slug}', 'Web\PageController@tag')->name('tag');
 });
 
 //Administradores - encadenando prefijo y nombre
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::name('admin.')->group(function () {
     /**
      * Como cada sección tendrá su CRUD se usan controladores de recursos
      * Se pueden registrar muchos de esta forma
