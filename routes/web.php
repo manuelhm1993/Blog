@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 //De la raíz redireccionar al blog
 Route::redirect('/', '/blog');
 
+//Auth::routes(['register' => false]);//Desactivar el enlace de registro
 Auth::routes();
 
 //Usuarios
@@ -29,4 +30,15 @@ Route::name('web.')->group(function () {
     Route::get('/etiquetas/{tag:slug}', 'Web\PageController@tag')->name('tag');
 });
 
-//Administradores
+//Administradores - encadenando prefijo y nombre
+Route::prefix('admin')->name('admin.')->group(function () {
+    /**
+     * Como cada sección tendrá su CRUD se usan controladores de recursos
+     * Se pueden registrar muchos de esta forma
+     */
+    Route::resources([
+        'categories' => 'Admin\CategoryController',
+        'tags'       => 'Admin\TagController',
+        'posts'      => 'Admin\PostController',
+    ]);
+});

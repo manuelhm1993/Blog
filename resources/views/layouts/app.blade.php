@@ -49,6 +49,19 @@
                                 </li>
                             @endif
                         @else
+                            {{-- Items del navbar --}}
+                            <li class="nav-item">
+                                <a href="{{ route('admin.categories.index') }}" class="nav-link">Categorías</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{{ route('admin.tags.index') }}" class="nav-link">Etiquetas</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{{ route('admin.posts.index') }}" class="nav-link">Posts</a>
+                            </li>
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
