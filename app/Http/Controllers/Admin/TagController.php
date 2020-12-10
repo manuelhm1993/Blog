@@ -28,7 +28,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.tags.create');
     }
 
     /**
@@ -39,7 +39,10 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tag = Tag::create($request->all());
+
+        return redirect()->route('admin.tags.edit')
+                         ->with('info', 'Etiqueta creada exitosamente');
     }
 
     /**
