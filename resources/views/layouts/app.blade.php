@@ -61,7 +61,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a href="{{ route('admin.posts.index') }}" class="nav-link">Posts</a>
+                                <a href="{{ route('admin.posts.index') }}" class="nav-link">Entradas</a>
                             </li>
 
                             <li class="nav-item dropdown">

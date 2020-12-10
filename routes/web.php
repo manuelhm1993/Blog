@@ -30,8 +30,8 @@ Route::name('web.')->group(function () {
     Route::get('/etiquetas/{tag:slug}', 'Web\PageController@tag')->name('tag');
 });
 
-//Administradores - encadenando prefijo y nombre
-Route::name('admin.')->group(function () {
+//Administradores - Todas las rutas necesitan login y tienen admin. como prefijo de nombre
+Route::middleware(['auth'])->name('admin.')->group(function () {
     /**
      * Como cada sección tendrá su CRUD se usan controladores de recursos
      * Se pueden registrar muchos de esta forma
