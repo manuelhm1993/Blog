@@ -41,7 +41,7 @@ class TagController extends Controller
     {
         $tag = Tag::create($request->all());
 
-        return redirect()->route('admin.tags.edit')
+        return redirect()->route('admin.tags.edit', $tag->id)
                          ->with('info', 'Etiqueta creada exitosamente');
     }
 
@@ -62,9 +62,9 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Tag $tag)
     {
-        //
+        return view('admin.tags.edit', compact('tag'));
     }
 
     /**
@@ -74,9 +74,13 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Tag $tag)
     {
-        //
+        //Llena los campos con la nueva información y luego la guarda
+        $tag->fill($request->all())->save();
+
+        return redirect()->route('admin.tags.edit', $tag->id)
+                         ->with('info', 'Etiqueta actualizada exitosamente');
     }
 
     /**
