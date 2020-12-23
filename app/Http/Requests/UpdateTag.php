@@ -13,7 +13,7 @@ class UpdateTag extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;//Activar la validación
     }
 
     /**
@@ -24,7 +24,8 @@ class UpdateTag extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required',
+            'slug' => 'required|unique:tags,slug',
         ];
     }
 }

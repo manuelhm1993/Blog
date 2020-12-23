@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 use App\Tag;
 
+//Clases de validación personalizada
+use App\Http\Requests\StoreTag;
+use App\Http\Requests\UpdateTag;
+
 class TagController extends Controller
 {
     /**
@@ -37,7 +41,8 @@ class TagController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    //Se sustituye la clase Request por la clase de validación personalizada
+    public function store(StoreTag $request)
     {
         //Validar antes de crear la etiqueta
         $tag = Tag::create($request->all());
@@ -75,7 +80,7 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tag $tag)
+    public function update(UpdateTag $request, Tag $tag)
     {
         //Validar antes de actualizar la etiqueta
 
