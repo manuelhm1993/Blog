@@ -39,6 +39,7 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
+        //Validar antes de crear la etiqueta
         $tag = Tag::create($request->all());
 
         return redirect()->route('admin.tags.edit', $tag->id)
@@ -76,6 +77,8 @@ class TagController extends Controller
      */
     public function update(Request $request, Tag $tag)
     {
+        //Validar antes de actualizar la etiqueta
+
         //Llena los campos con la nueva información y luego la guarda
         $tag->fill($request->all())->save();
 
