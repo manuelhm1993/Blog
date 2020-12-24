@@ -6,8 +6,8 @@
             <div class="col-md-8 offset-md-2">
                 <div class="card">
                     <h5 class="card-header">
-                        Lista de etiquetas
-                        <a href="{{ route('admin.tags.create') }}" class="btn btn-sm btn-primary float-right">Crear</a>
+                        Lista de categorías
+                        <a href="{{ route('admin.categories.create') }}" class="btn btn-sm btn-primary float-right">Crear</a>
                     </h5>
 
                     <div class="card-body">
@@ -21,19 +21,19 @@
                             </thead>
 
                             <tbody>
-                                @foreach ($tags as $tag)
+                                @foreach ($categories as $category)
                                     <tr>
-                                        <td>{{ $tag->id }}</td>
-                                        <td>{{ $tag->name }}</td>
+                                        <td>{{ $category->id }}</td>
+                                        <td>{{ $category->name }}</td>
                                         <td class="text-center">
                                             <div class="btn-group" role="group" aria-label="Acciones CRUD">
-                                                <a href="{{ route('admin.tags.show', $tag->id) }}" class="btn btn-sm btn-success">Ver</a>
-                                                <a href="{{ route('admin.tags.edit', $tag->id) }}" class="btn btn-sm btn-primary">Editar</a>
+                                                <a href="{{ route('admin.categories.show', $category->id) }}" class="btn btn-sm btn-success">Ver</a>
+                                                <a href="{{ route('admin.categories.edit', $category->id) }}" class="btn btn-sm btn-primary">Editar</a>
                                                 
-                                                {!! Form::submit('Eliminar', ['form' => 'eliminar-' . $tag->id, 'class' => 'btn btn-danger btn-sm']) !!}
+                                                {!! Form::submit('Eliminar', ['form' => 'eliminar-' . $category->id, 'class' => 'btn btn-danger btn-sm']) !!}
                                             </div>
 
-                                            {!! Form::open(['route' => ['admin.tags.destroy', $tag->id], 'method' => 'delete', 'id' => 'eliminar-' . $tag->id]) !!}
+                                            {!! Form::open(['route' => ['admin.categories.destroy', $category->id], 'method' => 'delete', 'id' => 'eliminar-' . $category->id]) !!}
                                             {!! Form::close() !!}
                                         </td>
                                     </tr>
@@ -41,7 +41,7 @@
                             </tbody>
                         </table>
 
-                        {{ $tags->links() }}
+                        {{ $categories->links() }}
                     </div>
                 </div>
             </div>
