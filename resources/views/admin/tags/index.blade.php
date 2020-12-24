@@ -16,7 +16,7 @@
                                 <tr>
                                     <th scope="col">Id</th>
                                     <th scope="col">Nombre</th>
-                                    <th scope="col" colspan="3">Acciones</th>
+                                    <th scope="col" class="text-center">Acciones</th>
                                 </tr>
                             </thead>
 
@@ -25,16 +25,12 @@
                                     <tr>
                                         <td>{{ $tag->id }}</td>
                                         <td>{{ $tag->name }}</td>
-                                        <td width="10px">
-                                            <a href="{{ route('admin.tags.show', $tag->id) }}" class="btn btn-sm btn-secondary">Ver</a>
-                                        </td>
-
-                                        <td width="10px">
-                                            <a href="{{ route('admin.tags.edit', $tag->id) }}" class="btn btn-sm btn-secondary">Editar</a>
-                                        </td>
-
-                                        <td width="10px">
-                                            Eliminar
+                                        <td class="text-center">
+                                            <div class="btn-group" role="group" aria-label="Acciones CRUD">
+                                                <a href="{{ route('admin.tags.show', $tag->id) }}" class="btn btn-sm btn-success">Ver</a>
+                                                <a href="{{ route('admin.tags.edit', $tag->id) }}" class="btn btn-sm btn-primary">Editar</a>
+                                                <a href="{{ route('admin.tags.edit', $tag->id) }}" class="btn btn-sm btn-danger">Eliminar</a>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
