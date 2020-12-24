@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 <div class="card">
-                    <h5 class="card-header bg-white">
+                    <h5 class="card-header">
                         Lista de etiquetas
                         <a href="{{ route('admin.tags.create') }}" class="btn btn-sm btn-primary float-right">Crear</a>
                     </h5>
