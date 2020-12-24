@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTag extends FormRequest
+class StoreCategory extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class StoreTag extends FormRequest
      */
     public function authorize()
     {
-        return true;//Activar la validación
+        return true;
     }
 
     /**
@@ -25,7 +25,7 @@ class StoreTag extends FormRequest
     {
         return [
             'name' => 'required',
-            'slug' => 'required|unique:tags,slug',
+            'slug' => 'required|unique:categories,slug',
         ];
     }
 }

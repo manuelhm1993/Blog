@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateTag extends FormRequest
+class UpdateCategory extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class UpdateTag extends FormRequest
      */
     public function authorize()
     {
-        return true;//Activar la validación
+        return true;
     }
 
     /**
@@ -25,8 +25,7 @@ class UpdateTag extends FormRequest
     {
         return [
             'name' => 'required',
-            //Validar que el slug sea único siempre que no se evalúe a sí mismo
-            'slug' => 'required|unique:tags,slug,' . $this->tag->id,
+            'slug' => 'required|unique:categories,slug,' . $this->category->id,
         ];
     }
 }
