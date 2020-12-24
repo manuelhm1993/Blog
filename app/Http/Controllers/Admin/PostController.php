@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Category;
+use App\Post;
 
-use App\Http\Requests\StoreCategory;
-use App\Http\Requests\UpdateCategory;
+use App\Http\Requests\StorePost;
+use App\Http\Requests\UpdatePost;
 
-class CategoryController extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +19,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderBy('id', 'desc')->paginate();
+        $posts = Post::orderBy('id', 'desc')->paginate();
 
-        return view('admin.categories.index', compact('categories'));
+        return view('admin.posts.index', compact('posts'));
     }
 
     /**
@@ -31,7 +31,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.categories.create');
+        return view('admin.posts.create');
     }
 
     /**
@@ -40,12 +40,12 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCategory $request)
+    public function store(StorePost $request)
     {
-        $category = Category::create($request->all());
+        $post = Post::create($request->all());
 
-        return redirect()->route('admin.categories.edit', $category->id)
-                         ->with('info', 'Categoría creada exitosamente');
+        return redirect()->route('admin.posts.edit', $post->id)
+                         ->with('info', 'Entrada creada exitosamente');
     }
 
     /**
@@ -54,9 +54,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Post $post)
     {
-        return view('admin.categories.show', compact('category'));
+        return view('admin.posts.show', compact('post'));
     }
 
     /**
@@ -65,9 +65,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(Post $post)
     {
-        return view('admin.categories.edit', compact('category'));
+        return view('admin.posts.edit', compact('post'));
     }
 
     /**
@@ -77,15 +77,15 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCategory $request, Category $category)
+    public function update(UpdatePost $request, Post $post)
     {
         //Validar antes de actualizar la etiqueta
 
         //Llena los campos con la nueva información y luego la guarda
-        $category->fill($request->all())->save();
+        $post->fill($request->all())->save();
 
-        return redirect()->route('admin.categories.edit', $category->id)
-                         ->with('info', 'Categoría actualizada exitosamente');
+        return redirect()->route('admin.posts.edit', $post->id)
+                         ->with('info', 'Entrada actualizada exitosamente');
     }
 
     /**
@@ -94,10 +94,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Post $post)
     {
-        $category->delete();
+        $post->delete();
 
-        return back()->with('info', 'Categoría ' . $category->name . ' eliminada exitosamente');
+        return back()->with('info', 'Entrada ' . $post->name . ' eliminada exitosamente');
     }
 }
