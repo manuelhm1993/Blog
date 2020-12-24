@@ -17,3 +17,30 @@
         {!! Form::submit('Crear', ['class' => 'btn btn-primary']) !!}
     </div>
 @endif
+
+@section('scripts')
+    <script defer>
+        /*
+        El evendo $(document).ready(function() {}); no es soportado
+        Pero se puede usar el resto de JQuery dentro del evendo load
+        */
+        window.addEventListener('load', function() {
+            let toSlug = (str) => {
+                let slug = '';
+                let trimmed = $.trim(str);
+
+                slug = trimmed.replace(/[^a-z0-9-]/gi, '-').
+                replace(/-+/g, '-').
+                replace(/^-|-$/g, '');
+
+                return slug.toLowerCase();
+            };
+
+            $('#slug, #name').on('keyup', function (e) {
+                let objeto = (e.target.name == 'slug') ? $(this) : '#slug';
+
+                $(objeto).val(toSlug($(this).val()));
+            });
+        }, false);
+    </script>
+@endsection

@@ -26,7 +26,7 @@ class UpdateTag extends FormRequest
         return [
             'name' => 'required',
             //Validar que el slug sea único siempre que no se evalúe a sí mismo
-            'slug' => 'required|unique:tags,slug,' . $this->tag,
+            'slug' => 'required|unique:tags,slug,' . $this->tag->id,
         ];
     }
 }
