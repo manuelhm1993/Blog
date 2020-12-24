@@ -8,7 +8,12 @@
     {!! Form::text('slug', null, ['class' => 'form-control', 'id' => 'slug']) !!}
 </div>
 
-@if (isset($tag))
+<div class="form-group">
+    {!! Form::label('body', 'Descripción') !!}
+    {!! Form::textarea('body', null, ['class' => 'form-control', 'id' => 'body']) !!}
+</div>
+
+@if (isset($category))
     <div class="form-group">
         {!! Form::submit('Actualizar', ['class' => 'btn btn-primary']) !!}
     </div>
