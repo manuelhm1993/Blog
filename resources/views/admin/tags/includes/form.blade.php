@@ -36,10 +36,12 @@
                 return slug.toLowerCase();
             };
 
-            $('#slug, #name').on('keyup', function (e) {
-                let objeto = (e.target.name == 'slug') ? $(this) : '#slug';
+            $('#name').keyup(function (e) {
+                $('#slug').val(toSlug($(this).val()));
+            });
 
-                $(objeto).val(toSlug($(this).val()));
+            $('#slug').blur(function (e) {
+                $(this).val(toSlug($(this).val()));
             });
         }, false);
     </script>
