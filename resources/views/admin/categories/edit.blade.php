@@ -6,12 +6,12 @@
             <div class="col-md-8 offset-md-2">
                 <div class="card">
                     <h5 class="card-header">
-                        Editar etiqueta
+                        Editar categoría
                     </h5>
 
                     <div class="card-body">
-                        {!! Form::model($tag, ['route' => ['admin.tags.update', $tag->id], 'method' => 'PUT']) !!}
-                            @include('admin.tags.includes.form')
+                        {!! Form::model($category, ['route' => ['admin.categories.update', $category->id], 'method' => 'PUT']) !!}
+                            @include('admin.categories.includes.form')
                         {!! Form::close() !!}
                     </div>
                 </div>
