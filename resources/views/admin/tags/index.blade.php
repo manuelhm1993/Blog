@@ -29,8 +29,12 @@
                                             <div class="btn-group" role="group" aria-label="Acciones CRUD">
                                                 <a href="{{ route('admin.tags.show', $tag->id) }}" class="btn btn-sm btn-success">Ver</a>
                                                 <a href="{{ route('admin.tags.edit', $tag->id) }}" class="btn btn-sm btn-primary">Editar</a>
-                                                <a href="{{ route('admin.tags.edit', $tag->id) }}" class="btn btn-sm btn-danger">Eliminar</a>
+                                                
+                                                {!! Form::submit('Eliminar', ['form' => 'eliminar-' . $tag->id, 'class' => 'btn btn-danger btn-sm']) !!}
                                             </div>
+
+                                            {!! Form::open(['route' => ['admin.tags.destroy', $tag->id], 'method' => 'delete', 'id' => 'eliminar-' . $tag->id]) !!}
+                                            {!! Form::close() !!}
                                         </td>
                                     </tr>
                                 @endforeach
