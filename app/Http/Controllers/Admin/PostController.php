@@ -5,6 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Post;
+
+use App\Http\Requests\StorePost;
+use App\Http\Requests\UpdatePost;
+
 class PostController extends Controller
 {
     /**
@@ -14,7 +19,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::orderBy('id', 'desc')->paginate();
+
+        return view('admin.posts.index', compact('posts'));
     }
 
     /**
@@ -24,7 +31,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.posts.create');
     }
 
     /**
@@ -33,9 +40,12 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePost $request)
     {
-        //
+        $post = Post::create($request->all());
+
+        return redirect()->route('admin.posts.edit', $post->id)
+                         ->with('info', 'Entrada creada exitosamente');
     }
 
     /**
@@ -44,9 +54,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        //
+        return view('admin.posts.show', compact('post'));
     }
 
     /**
@@ -55,9 +65,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        return view('admin.posts.edit', compact('post'));
     }
 
     /**
@@ -67,9 +77,15 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdatePost $request, Post $post)
     {
-        //
+        //Validar antes de actualizar la etiqueta
+
+        //Llena los campos con la nueva información y luego la guarda
+        $post->fill($request->all())->save();
+
+        return redirect()->route('admin.posts.edit', $post->id)
+                         ->with('info', 'Entrada actualizada exitosamente');
     }
 
     /**
@@ -78,8 +94,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        return back()->with('info', 'Entrada ' . $post->name . ' eliminada exitosamente');
     }
 }
