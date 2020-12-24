@@ -5,7 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+use App\Tag;
+
+//Clases de validación personalizada
+use App\Http\Requests\StoreTag;
+use App\Http\Requests\UpdateTag;
+
+class TagController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +20,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $tags = Tag::orderBy('id', 'desc')->paginate();
+
+        return view('admin.tags.index', compact('tags'));
     }
 
     /**
@@ -24,7 +32,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.tags.create');
     }
 
     /**
@@ -33,9 +41,14 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    //Se sustituye la clase Request por la clase de validación personalizada
+    public function store(StoreTag $request)
     {
-        //
+        //Validar antes de crear la etiqueta
+        $tag = Tag::create($request->all());
+
+        return redirect()->route('admin.tags.edit', $tag->id)
+                         ->with('info', 'Etiqueta creada exitosamente');
     }
 
     /**
@@ -44,9 +57,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Tag $tag)
     {
-        //
+        return view('admin.tags.show', compact('tag'));
     }
 
     /**
@@ -55,9 +68,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Tag $tag)
     {
-        //
+        return view('admin.tags.edit', compact('tag'));
     }
 
     /**
@@ -67,9 +80,15 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateTag $request, Tag $tag)
     {
-        //
+        //Validar antes de actualizar la etiqueta
+
+        //Llena los campos con la nueva información y luego la guarda
+        $tag->fill($request->all())->save();
+
+        return redirect()->route('admin.tags.edit', $tag->id)
+                         ->with('info', 'Etiqueta actualizada exitosamente');
     }
 
     /**
@@ -78,8 +97,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Tag $tag)
     {
-        //
+        $tag->delete();
+
+        return back()->with('info', 'Etiqueta ' . $tag->name . ' eliminada exitosamente');
     }
 }
