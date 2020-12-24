@@ -5,13 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Tag;
+use App\Category;
 
-//Clases de validación personalizada
-use App\Http\Requests\StoreTag;
-use App\Http\Requests\UpdateTag;
+use App\Http\Requests\StoreCategory;
+use App\Http\Requests\UpdateCategory;
 
-class TagController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,9 +19,9 @@ class TagController extends Controller
      */
     public function index()
     {
-        $tags = Tag::orderBy('id', 'desc')->paginate();
+        $categories = Category::orderBy('id', 'desc')->paginate();
 
-        return view('admin.tags.index', compact('tags'));
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -32,7 +31,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        return view('admin.tags.create');
+        return view('admin.categories.create');
     }
 
     /**
@@ -41,14 +40,12 @@ class TagController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    //Se sustituye la clase Request por la clase de validación personalizada
-    public function store(StoreTag $request)
+    public function store(StoreCategory $request)
     {
-        //Validar antes de crear la etiqueta
-        $tag = Tag::create($request->all());
+        $category = Category::create($request->all());
 
-        return redirect()->route('admin.tags.edit', $tag->id)
-                         ->with('info', 'Etiqueta creada exitosamente');
+        return redirect()->route('admin.categories.edit', $category->id)
+                         ->with('info', 'Categoría creada exitosamente');
     }
 
     /**
@@ -57,9 +54,9 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Tag $tag)
+    public function show(Category $category)
     {
-        return view('admin.tags.show', compact('tag'));
+        return view('admin.categories.show', compact('category'));
     }
 
     /**
@@ -68,9 +65,9 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tag $tag)
+    public function edit(Category $category)
     {
-        return view('admin.tags.edit', compact('tag'));
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**
@@ -80,15 +77,15 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateTag $request, Tag $tag)
+    public function update(UpdateCategory $request, Category $category)
     {
         //Validar antes de actualizar la etiqueta
 
         //Llena los campos con la nueva información y luego la guarda
-        $tag->fill($request->all())->save();
+        $category->fill($request->all())->save();
 
-        return redirect()->route('admin.tags.edit', $tag->id)
-                         ->with('info', 'Etiqueta actualizada exitosamente');
+        return redirect()->route('admin.categories.edit', $category->id)
+                         ->with('info', 'Categoría actualizada exitosamente');
     }
 
     /**
@@ -97,10 +94,10 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tag $tag)
+    public function destroy(Category $category)
     {
-        $tag->delete();
+        $category->delete();
 
-        return back()->with('info', 'Etiqueta ' . $tag->name . ' eliminada exitosamente');
+        return back()->with('info', 'Categoría ' . $category->name . ' eliminada exitosamente');
     }
 }
