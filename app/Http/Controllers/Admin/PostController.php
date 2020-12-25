@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Post;
+use App\Category;
+use App\Tag;
 
 use App\Http\Requests\StorePost;
 use App\Http\Requests\UpdatePost;
@@ -33,7 +35,17 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+        /**
+         * Trae todas las categorías ordenadas por nombre de forma ascendente
+         * Devuelve un array asociativo donde id es la clave y name es el valor
+        */
+        $categories = Category::orderBy('name', 'asc')->pluck('name', 'id');
+        
+        //Al concatenar métodos se debe usar get para obtener los resultados
+        $tags = Tag::orderBy('name', 'asc')->get();
+
+        //Enviar ambas colecciones a la vista
+        return view('admin.posts.create', compact('categories', 'tags'));
     }
 
     /**
