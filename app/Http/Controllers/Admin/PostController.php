@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Post;
+use App\Category;
+use App\Tag;
 
 use App\Http\Requests\StorePost;
 use App\Http\Requests\UpdatePost;
@@ -19,7 +21,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('id', 'desc')->paginate();
+        $posts = Post::orderBy('id', 'desc')
+                     ->where('user_id', auth()->user()->id)
+                     ->paginate();
 
         return view('admin.posts.index', compact('posts'));
     }
@@ -31,7 +35,17 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+        /**
+         * Trae todas las categorías ordenadas por nombre de forma ascendente
+         * Devuelve un array asociativo donde id es la clave y name es el valor
+        */
+        $categories = Category::orderBy('name', 'asc')->pluck('name', 'id');
+        
+        //Al concatenar métodos se debe usar get para obtener los resultados
+        $tags = Tag::orderBy('name', 'asc')->get();
+
+        //Enviar ambas colecciones a la vista
+        return view('admin.posts.create', compact('categories', 'tags'));
     }
 
     /**
@@ -67,7 +81,10 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.posts.edit', compact('post'));
+        $categories = Category::orderBy('name', 'asc')->pluck('name', 'id');
+        $tags = Tag::orderBy('name', 'asc')->get();
+
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**

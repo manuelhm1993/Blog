@@ -1,3 +1,12 @@
+{!! Form::hidden('user_id', auth()->user()->id) !!}
+
+<div class="form-group">
+    {!! Form::label('category_id', 'Categorías') !!}
+
+    {{-- Forma de crear una lista desplegable con una variable de controlador --}}
+    {!! Form::select('category_id', $categories, null, ['class' => 'form-control']) !!}
+</div>
+
 <div class="form-group">
     {!! Form::label('name', 'Nombre de la entrada') !!}
     {!! Form::text('name', null, ['class' => 'form-control', 'id' => 'name']) !!}
@@ -11,6 +20,37 @@
 <div class="form-group">
     {!! Form::label('body', 'Descripción') !!}
     {!! Form::textarea('body', null, ['class' => 'form-control', 'id' => 'body']) !!}
+</div>
+
+<div class="form-group">
+    {!! Form::label('tags', 'Etiquetas') !!}
+    
+    <div>
+        @foreach ($tags as $tag)
+            <label>
+                {!! Form::checkbox('tags[]', $tag->id) !!} {{ $tag->name }}
+            </label>
+        @endforeach
+    </div>
+</div>
+
+<div class="form-group">
+    {!! Form::label('status', 'Estado', ['class' => 'd-block']) !!}
+
+    <div class="custom-control custom-radio custom-control-inline">
+        {!! Form::radio('status', 'PUBLISHED', false, ['class' => 'custom-control-input', 'id' => 'customRadioInline1']) !!}
+        {!! Form::label('customRadioInline1', 'Publicado', ['class' => 'custom-control-label']) !!}
+    </div>
+
+    <div class="custom-control custom-radio custom-control-inline">
+        {!! Form::radio('status', 'DRAFT', false, ['class' => 'custom-control-input', 'id' => 'customRadioInline2']) !!}
+        {!! Form::label('customRadioInline2', 'Borrador', ['class' => 'custom-control-label']) !!}
+    </div>
+</div>
+
+<div class="form-group">
+    {!! Form::label('file', 'Imagen') !!}
+    {!! Form::file('file', ['class' => 'form-control-file']) !!}
 </div>
 
 @if (isset($post))

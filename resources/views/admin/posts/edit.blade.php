@@ -10,7 +10,7 @@
                     </h5>
 
                     <div class="card-body">
-                        {!! Form::model($post, ['route' => ['admin.posts.update', $post->id], 'method' => 'PUT']) !!}
+                        {!! Form::model($post, ['route' => ['admin.posts.update', $post->id], 'method' => 'PUT', 'files' => true]) !!}
                             @include('admin.posts.includes.form')
                         {!! Form::close() !!}
                     </div>
