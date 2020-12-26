@@ -23,6 +23,18 @@
 </div>
 
 <div class="form-group">
+    {!! Form::label('tags', 'Etiquetas') !!}
+    
+    <div>
+        @foreach ($tags as $tag)
+            <label>
+                {!! Form::checkbox('tags[]', $tag->id) !!} {{ $tag->name }}
+            </label>
+        @endforeach
+    </div>
+</div>
+
+<div class="form-group">
     {!! Form::label('status', 'Estado', ['class' => 'd-block']) !!}
 
     <div class="custom-control custom-radio custom-control-inline">
