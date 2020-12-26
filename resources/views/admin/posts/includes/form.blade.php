@@ -23,6 +23,20 @@
 </div>
 
 <div class="form-group">
+    {!! Form::label('status', 'Estado', ['class' => 'd-block']) !!}
+
+    <div class="custom-control custom-radio custom-control-inline">
+        {!! Form::radio('status', 'PUBLISHED', false, ['class' => 'custom-control-input', 'id' => 'customRadioInline1']) !!}
+        {!! Form::label('customRadioInline1', 'Publicado', ['class' => 'custom-control-label']) !!}
+    </div>
+
+    <div class="custom-control custom-radio custom-control-inline">
+        {!! Form::radio('status', 'DRAFT', false, ['class' => 'custom-control-input', 'id' => 'customRadioInline2']) !!}
+        {!! Form::label('customRadioInline2', 'Borrador', ['class' => 'custom-control-label']) !!}
+    </div>
+</div>
+
+<div class="form-group">
     {!! Form::label('file', 'Imagen') !!}
     {!! Form::file('file', ['class' => 'form-control-file']) !!}
 </div>
