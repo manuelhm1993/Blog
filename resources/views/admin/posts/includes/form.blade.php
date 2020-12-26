@@ -22,6 +22,11 @@
     {!! Form::textarea('body', null, ['class' => 'form-control', 'id' => 'body']) !!}
 </div>
 
+<div class="form-group">
+    {!! Form::label('file', 'Imagen') !!}
+    {!! Form::file('file', ['class' => 'form-control-file']) !!}
+</div>
+
 @if (isset($post))
     <div class="form-group">
         {!! Form::submit('Actualizar', ['class' => 'btn btn-primary']) !!}

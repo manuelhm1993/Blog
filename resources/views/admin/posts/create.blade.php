@@ -10,7 +10,7 @@
                     </h5>
 
                     <div class="card-body">
-                        {!! Form::open(['route' => 'admin.posts.store']) !!}
+                        {!! Form::open(['route' => 'admin.posts.store', 'files' => true]) !!}
                             @include('admin.posts.includes.form')
                         {!! Form::close() !!}
                     </div>
