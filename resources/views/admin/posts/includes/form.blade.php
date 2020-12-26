@@ -18,8 +18,8 @@
 </div>
 
 <div class="form-group">
-    {!! Form::label('body', 'Descripción') !!}
-    {!! Form::textarea('body', null, ['class' => 'form-control', 'id' => 'body']) !!}
+    {!! Form::label('file', 'Imagen') !!}
+    {!! Form::file('file', ['class' => 'form-control-file']) !!}
 </div>
 
 <div class="form-group">
@@ -49,19 +49,22 @@
 </div>
 
 <div class="form-group">
-    {!! Form::label('file', 'Imagen') !!}
-    {!! Form::file('file', ['class' => 'form-control-file']) !!}
+    {!! Form::label('excerpt', 'Extracto') !!}
+    {!! Form::textarea('excerpt', null, ['class' => 'form-control', 'rows' => '2']) !!}
 </div>
 
-@if (isset($post))
-    <div class="form-group">
+<div class="form-group">
+    {!! Form::label('body', 'Descripción') !!}
+    {!! Form::textarea('body', null, ['class' => 'form-control']) !!}
+</div>
+
+<div class="form-group">
+    @if (isset($post))
         {!! Form::submit('Actualizar', ['class' => 'btn btn-primary']) !!}
-    </div>
-@else
-    <div class="form-group">
+    @else
         {!! Form::submit('Crear', ['class' => 'btn btn-primary']) !!}
-    </div>
-@endif
+    @endif
+</div>
 
 @section('scripts')
     <script defer>
