@@ -67,6 +67,7 @@
 </div>
 
 @section('scripts')
+    <script src="{{ asset('vendor/ckeditor/ckeditor.js') }}" defer></script>
     <script defer>
         /*
         El evendo $(document).ready(function() {}); no es soportado
@@ -91,6 +92,13 @@
             $('#slug').blur(function (e) {
                 $(this).val(toSlug($(this).val()));
             });
+
+            //Configuración de dimensiones
+            CKEDITOR.config.height = 400;
+            CKEDITOR.config.width = 'auto';
+
+            //Componente sobre el que tendrá efecto
+            CKEDITOR.replace('body');
         }, false);
     </script>
 @endsection
