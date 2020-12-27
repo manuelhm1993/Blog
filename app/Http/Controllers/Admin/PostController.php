@@ -12,6 +12,8 @@ use App\Tag;
 use App\Http\Requests\StorePost;
 use App\Http\Requests\UpdatePost;
 
+use Illuminate\Support\Facades\Storage;
+
 class PostController extends Controller
 {
     /**
@@ -56,7 +58,34 @@ class PostController extends Controller
      */
     public function store(StorePost $request)
     {
-        $post = Post::create($request->all());
+        //Crear el nuevo post
+        $post = Post::create($request->except('file'));
+
+        //Comprobar si se subió una imágen
+        if ($request->hasFile('file')) {
+            //Rescatar el archivo con propiedades dinámicas (el nombre del campo)
+            $file = $request->file;
+
+            /**
+             * Guardar la imágen en la carpeta public/image 
+             * Guardar su ruta reliva: image/prueba.jpg
+             */
+            $path = Storage::disk('public')->put('image', $file);
+
+            /**
+             * Sobreescribir el campo file con la ruta de la imágen
+             * Como se tiene una ruta relativa se usa el helper asset
+             * El helper construye toda la ruta hasta la carpeta public
+             * En la variable $path se almacenó la ruta relativa del archivo
+             */
+            $post->fill(['file' => asset($path)]);
+            
+            //Guardar el nuevo cambio
+            $post->save();
+        }
+
+        //Relación con las etiquetas muchos a muchos
+        $post->tags()->attach($request->tags);
 
         return redirect()->route('admin.posts.edit', $post->id)
                          ->with('info', 'Entrada creada exitosamente');
@@ -96,10 +125,16 @@ class PostController extends Controller
      */
     public function update(UpdatePost $request, Post $post)
     {
-        //Validar antes de actualizar la etiqueta
-
         //Llena los campos con la nueva información y luego la guarda
-        $post->fill($request->all())->save();
+        $post->fill($request->except('file'))->save();
+
+        if ($request->hasFile('file')) {
+            $path = Storage::disk('public')->put('image', $request->file);
+            $post->fill(['file' => asset($path)])->save();
+        }
+
+        //Elimina todos los items que no estén en el array actual
+        $post->tags()->sync($request->tags);
 
         return redirect()->route('admin.posts.edit', $post->id)
                          ->with('info', 'Entrada actualizada exitosamente');
