@@ -35,7 +35,7 @@ class UpdatePost extends FormRequest
         ];
 
         //Agregar la validación de archivos si existen en la nueva entrada
-        if($this->post('file')) {
+        if($this->hasFile('file')) {
             $rules = array_merge($rules, ['file' => 'mimes:jpg,jpeg,png']);
         }
 
