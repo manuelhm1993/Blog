@@ -12,6 +12,8 @@ use App\Tag;
 use App\Http\Requests\StorePost;
 use App\Http\Requests\UpdatePost;
 
+use Illuminate\Support\Facades\Storage;
+
 class PostController extends Controller
 {
     /**
@@ -56,7 +58,31 @@ class PostController extends Controller
      */
     public function store(StorePost $request)
     {
+        //Crear el nuevo post
         $post = Post::create($request->all());
+
+        //Comprobar si se subió una imágen
+        if ($request->hasFile('file')) {
+            //Rescatar el archivo con propiedades dinámicas (el nombre del campo)
+            $file = $request->file;
+
+            /**
+             * Guardar la imágen en la carpeta public/image 
+             * Guardar su ruta reliva: image/prueba.jpg
+             */
+            $path = Storage::disk('public')->put('image', $file);
+
+            /**
+             * Sobreescribir el campo file con la ruta de la imágen
+             * Como se tiene una ruta relativa se usa el helper asset
+             * El helper construye toda la ruta hasta la carpeta public
+             * En la variable $path se almacenó la ruta relativa del archivo
+             */
+            $post->fill(['file' => asset($path)]);
+            
+            //Guardar el nuevo cambio
+            $post->save();
+        }
 
         return redirect()->route('admin.posts.edit', $post->id)
                          ->with('info', 'Entrada creada exitosamente');
