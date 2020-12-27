@@ -125,10 +125,16 @@ class PostController extends Controller
      */
     public function update(UpdatePost $request, Post $post)
     {
-        //Validar antes de actualizar la etiqueta
-
         //Llena los campos con la nueva información y luego la guarda
         $post->fill($request->all())->save();
+
+        if ($request->hasFile('file')) {
+            $path = Storage::disk('public')->put('image', $request->file);
+            $post->fill(['file' => asset($path)])->save();
+        }
+
+        //Elimina todos los items que no estén en el array actual
+        $post->tags()->sync($request->tags);
 
         return redirect()->route('admin.posts.edit', $post->id)
                          ->with('info', 'Entrada actualizada exitosamente');
