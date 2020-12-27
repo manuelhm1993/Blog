@@ -23,9 +23,23 @@ class StorePost extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required',
-            'slug' => 'required|unique:categories,slug',
+        //Cargar las validaciones requeridas
+        $rules = [
+            'user_id'     => 'required|integer',
+            'category_id' => 'required|integer',
+            'name'        => 'required',
+            'slug'        => 'required|unique:posts,slug',
+            'body'        => 'required',
+            'status'      => 'required|in:DRAFT,PUBLISHED',
+            'tags'        => 'required|array',
         ];
+
+        //Agregar la validación de archivos si existen en la nueva entrada
+        if($this->post('file')) {
+            $rules = array_merge($rules, ['file' => 'mimes:jpg,jpeg,png']);
+        }
+
+        //Devolver el resultado
+        return $rules;
     }
 }
