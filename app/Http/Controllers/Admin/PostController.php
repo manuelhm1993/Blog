@@ -59,7 +59,7 @@ class PostController extends Controller
     public function store(StorePost $request)
     {
         //Crear el nuevo post
-        $post = Post::create($request->all());
+        $post = Post::create($request->except('file'));
 
         //Comprobar si se subió una imágen
         if ($request->hasFile('file')) {
@@ -126,7 +126,7 @@ class PostController extends Controller
     public function update(UpdatePost $request, Post $post)
     {
         //Llena los campos con la nueva información y luego la guarda
-        $post->fill($request->all())->save();
+        $post->fill($request->except('file'))->save();
 
         if ($request->hasFile('file')) {
             $path = Storage::disk('public')->put('image', $request->file);
