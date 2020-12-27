@@ -110,6 +110,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        //Comprobar si tiene autorización para editar este post
+        $this->authorize('pass', $post);
+
         $categories = Category::orderBy('name', 'asc')->pluck('name', 'id');
         $tags = Tag::orderBy('name', 'asc')->get();
 
