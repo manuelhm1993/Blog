@@ -99,6 +99,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        $this->authorize('pass', $post);
+
         return view('admin.posts.show', compact('post'));
     }
 
@@ -110,6 +112,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        //Comprobar si tiene autorización para editar este post
+        $this->authorize('pass', $post);
+
         $categories = Category::orderBy('name', 'asc')->pluck('name', 'id');
         $tags = Tag::orderBy('name', 'asc')->get();
 
@@ -125,6 +130,8 @@ class PostController extends Controller
      */
     public function update(UpdatePost $request, Post $post)
     {
+        $this->authorize('pass', $post);
+
         //Llena los campos con la nueva información y luego la guarda
         $post->fill($request->except('file'))->save();
 
@@ -148,6 +155,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $this->authorize('pass', $post);
+        
         $post->delete();
 
         return back()->with('info', 'Entrada ' . $post->name . ' eliminada exitosamente');
