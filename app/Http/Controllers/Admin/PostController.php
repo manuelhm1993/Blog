@@ -84,6 +84,9 @@ class PostController extends Controller
             $post->save();
         }
 
+        //Relación con las etiquetas muchos a muchos
+        $post->tags()->attach($request->tags);
+
         return redirect()->route('admin.posts.edit', $post->id)
                          ->with('info', 'Entrada creada exitosamente');
     }
